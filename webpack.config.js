@@ -17,7 +17,7 @@ module.exports = {
 
   resolve: {
     modules: [
-      path.resolve(__dirname, "src"),
+      path.resolve(__dirname, "client"),
       "node_modules"
     ]
   },
@@ -62,7 +62,7 @@ module.exports = {
           "sass-loader"
         ],
         include: [
-          /src/
+          /client/
         ]
       }
     ]
