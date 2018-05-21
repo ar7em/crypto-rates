@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import PropTypes  from "prop-types";
 import { connect } from "react-redux";
+import New from "containers/New";
+import Layout from "components/Layout";
+import Header from "components/Header";
 
 class App extends Component {
   componentDidMount() {
@@ -8,9 +11,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        Hello!
-      </div>
+      <Layout>
+        <Header />
+        <New />
+      </Layout>
     );
   }
 }

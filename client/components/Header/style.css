@@ -1,0 +1,17 @@
+.Header {
+  position: relative;
+  font-size: 32px;
+
+  &__icon {
+    position: absolute;
+    left: 0;
+    margin-left: -2rem;
+    top: 0;
+  }
+
+  &__label,
+  &__icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
