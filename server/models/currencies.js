@@ -1,9 +1,16 @@
 const request = require("request-promise");
-const db = require("../db").db;
+const schedule = require("node-schedule");
+const db = require("../db");
 
 const api = "https://min-api.cryptocompare.com/data/price";
 const fiat = "EUR";
-const getCollection = () => db().get("currencies");
+const getCollection = () => db.get("currencies");
+
+const scheduleUpdate = (code) => {
+  schedule.scheduleJob("*/5 * * * *", () => {
+    fetch(code);
+  });
+};
 
 const getAll = async () => {
   const documents = await getCollection().find();
@@ -53,8 +60,14 @@ const remove = async (code) => {
   return await getCollection().remove({code});
 };
 
+db.then(async () => {
+  const currencies = await getAll();
+  currencies.forEach((currency) => scheduleUpdate(currency.code));
+});
+
 module.exports = {
   fetch,
   getAll,
-  remove
+  remove,
+  scheduleUpdate
 };

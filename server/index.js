@@ -3,7 +3,7 @@ const webpack = require("webpack");
 const webpackMiddleware = require("webpack-dev-middleware");
 const webpackConfig = require("../webpack.config.js");
 const controllers = require("./controllers");
-const db = require("./db");
+const databaseReady = require("./db");
 
 const app = express();
 
@@ -24,7 +24,7 @@ function registerEndpoints() {
   app.use(express.static("build"));
 }
 
-db.connect()
+databaseReady
   .then(useWebpackMiddleware)
   .then(registerEndpoints)
   .then(startServer);

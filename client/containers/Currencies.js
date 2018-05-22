@@ -7,6 +7,11 @@ import * as actions from "actions/currencies";
 class Currencies extends Component {
   componentDidMount() {
     this.props.requestAll();
+    this.refreshHandler = setInterval(this.props.requestAll, 60 * 5 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.refreshHandler);
   }
 
   render() {

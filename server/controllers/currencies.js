@@ -4,9 +4,10 @@ const model = require("../models/currencies");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  /* if not in DB */
   try {
-    const price = await model.fetch(req.body.code);
+    const code = req.body.code;
+    const price = await model.fetch(code);
+    model.scheduleUpdate(code);
     return res.status(200).json({price});
   } catch(err) {
     return res.status(500).json({error: err.message});
