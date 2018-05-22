@@ -19,7 +19,7 @@ export const requestNew = (code) => (dispatch, getState) => {
   const alreadyExists = list.find(currency => currency.code === code);
 
   if (alreadyExists) {
-    return dispatch(decline(`${code} already added`));
+    return dispatch(decline(`${code} is already added`));
   }
 
   dispatch({

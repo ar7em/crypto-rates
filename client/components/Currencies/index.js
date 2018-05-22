@@ -14,48 +14,45 @@ import {
 
 import style from "./style.css";
 
-const Currencies = () => (
-  <div className={style.Currencies}>
-    <Table selectable={false}>
-      <TableHeader
-        displaySelectAll={false}
-        adjustForCheckbox={false}
-      >
-        <TableRow>
-          <TableHeaderColumn>Currency</TableHeaderColumn>
-          <TableHeaderColumn>Price</TableHeaderColumn>
-          <TableHeaderColumn>History</TableHeaderColumn>
-          <TableHeaderColumn>Delete</TableHeaderColumn>
-        </TableRow>
-      </TableHeader>
-      <TableBody displayRowCheckbox={false}>
-        <TableRow>
-          <TableRowColumn>BTC</TableRowColumn>
-          <TableRowColumn>1331.13€</TableRowColumn>
-          <TableRowColumn></TableRowColumn>
-          <TableRowColumn>
-            <IconButton>
-              <DeleteIcon hoverColor={cyan500} />
-            </IconButton>
-          </TableRowColumn>
-        </TableRow>
-        <TableRow>
-          <TableRowColumn>LTC</TableRowColumn>
-          <TableRowColumn>7123€</TableRowColumn>
-          <TableRowColumn></TableRowColumn>
-          <TableRowColumn>
-            <IconButton>
-              <DeleteIcon hoverColor={cyan500} />
-            </IconButton>
-          </TableRowColumn>
-        </TableRow>
-      </TableBody>
-    </Table>
-  </div>
-);
+const Currencies = (props) => {
+  const rows = props.currencies.map(({code, price}) => (
+    <TableRow key={code}>
+      <TableRowColumn>{code}</TableRowColumn>
+      <TableRowColumn>{price}€</TableRowColumn>
+      <TableRowColumn></TableRowColumn>
+      <TableRowColumn>
+        <IconButton onClick={props.remove.bind(null, code)}>
+          <DeleteIcon hoverColor={cyan500} />
+        </IconButton>
+      </TableRowColumn>
+    </TableRow>
+  ));
+
+  return (
+    <div className={style.Currencies}>
+      <Table selectable={false}>
+        <TableHeader
+          displaySelectAll={false}
+          adjustForCheckbox={false}
+        >
+          <TableRow>
+            <TableHeaderColumn>Currency</TableHeaderColumn>
+            <TableHeaderColumn>Price</TableHeaderColumn>
+            <TableHeaderColumn>History</TableHeaderColumn>
+            <TableHeaderColumn>Delete</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>
+          {rows}
+        </TableBody>
+      </Table>
+    </div>
+  );
+};
 
 Currencies.propTypes = {
-  currencies: PropTypes.array
+  currencies: PropTypes.array.isRequired,
+  remove: PropTypes.func.isRequired
 };
 
 export default Currencies;

@@ -26,6 +26,10 @@ export default (state = initialState, action) => {
         fetchingNew: false,
         error: payload.error
       });
+    case actions.CURRENCIES_REMOVE:
+      return Object.assign({}, state, {
+        all: state.all.filter(({code}) => code !== payload.code)
+      });
     default:
       return state;
   }
