@@ -1,6 +1,7 @@
 .Header {
   position: relative;
   font-size: 32px;
+  margin-bottom: 1em;
 
   &__icon {
     position: absolute;

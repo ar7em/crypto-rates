@@ -24,7 +24,7 @@ module.exports = {
 
   devServer: {
     watchOptions: {
-      poll: true,
+      poll: 1000,
       ignored: /node_modules/
     },
     clientLogLevel: "warning",

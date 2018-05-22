@@ -2,22 +2,37 @@ import React, { Component } from "react";
 import PropTypes  from "prop-types";
 import { connect } from "react-redux";
 import Input from "components/Input";
+import * as actions from "actions/currencies";
 
 class NewCurrency extends Component {
   render() {
     return (
-      <Input />
+      <Input
+        onSubmit={this.props.request}
+        error={this.props.error}
+        fetching={this.props.fetching}
+      />
     );
   }
 }
 
 NewCurrency.propTypes = {
+  request: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  fetching: PropTypes.bool.isRequired
 };
 
-export const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
+  error: state.currencies.error,
+  fetching: state.currencies.fetchingNew
 });
 
-export const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
+  request: (code) => {
+    if (code) {
+      dispatch(actions.requestNew(code));
+    }
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewCurrency);

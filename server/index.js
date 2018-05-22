@@ -3,6 +3,7 @@ const monk = require("monk");
 const webpack = require("webpack");
 const webpackMiddleware = require("webpack-dev-middleware");
 const webpackConfig = require("../webpack.config.js");
+const controllers = require("./controllers");
 
 const app = express();
 let db;
@@ -28,6 +29,7 @@ function useWebpackMiddleware() {
 }
 
 function registerEndpoints() {
+  app.use(controllers);
   app.use(express.static("build"));
 }
 

@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import PropTypes  from "prop-types";
 import { connect } from "react-redux";
-import Rate from "components/Rate";
+import CurrenciesList from "components/Currencies";
+import actions from "actions/currencies";
 
-class ExchangeRate extends Component {
+class Currencies extends Component {
   render() {
     return (
-      <Rate />
+      <CurrenciesList />
     );
   }
 }
 
-ExchangeRate.propTypes = {
+Currencies.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
@@ -20,4 +21,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExchangeRate);
+export default connect(mapStateToProps, mapDispatchToProps)(Currencies);

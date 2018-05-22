@@ -1,3 +1,15 @@
 .Input {
-  margin: 2em 0;
+  margin-top: 1em;
+
+  &__field {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  &__button {
+    display: inline-block;
+    margin-left: 1em;
+    margin-top: 5px;
+    vertical-align: top;
+  }
 }

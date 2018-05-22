@@ -11,6 +11,7 @@
     "url": "git+https://github.com/ar7em/crypto-rates.git"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "material-ui": "^0.20.1",
     "mongodb": "^3.1.0-beta4",
@@ -19,7 +20,8 @@
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "autoprefixer": "^8.5.0",
