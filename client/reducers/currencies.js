@@ -2,7 +2,6 @@ import * as actions from "actions/currencies";
 
 const initialState = {
   fetchingNew: false,
-  fetchingAll: false,
   error: "",
   all: []
 };
@@ -29,6 +28,10 @@ export default (state = initialState, action) => {
     case actions.CURRENCIES_REMOVE:
       return Object.assign({}, state, {
         all: state.all.filter(({code}) => code !== payload.code)
+      });
+    case actions.CURRENCIES_RECEIVED_ALL:
+      return Object.assign({}, state, {
+        all: payload
       });
     default:
       return state;

@@ -30,7 +30,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   request: (code) => {
     if (code) {
-      dispatch(actions.requestNew(code));
+      dispatch(actions.requestNew(code.toUpperCase()));
     }
   }
 });

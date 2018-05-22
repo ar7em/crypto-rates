@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from "material-ui/CircularProgress";
 
 import style from "./style.css";
 

@@ -15,7 +15,7 @@ import {
 import style from "./style.css";
 
 const Currencies = (props) => {
-  const rows = props.currencies.map(({code, price}) => (
+  const rows = props.currencies.map(({ code, price }) => (
     <TableRow key={code}>
       <TableRowColumn>{code}</TableRowColumn>
       <TableRowColumn>{price}€</TableRowColumn>

@@ -1,20 +1,11 @@
 const express = require("express");
-const monk = require("monk");
 const webpack = require("webpack");
 const webpackMiddleware = require("webpack-dev-middleware");
 const webpackConfig = require("../webpack.config.js");
 const controllers = require("./controllers");
+const db = require("./db");
 
 const app = express();
-let db;
-
-function connectToDb() {
-  const url = "mongodb://mongo:27017";
-  db = monk(url);
-  return db.then(() => {
-    console.log("Connected to Mongo");
-  });
-}
 
 const startServer = () => {
   app.listen("3000", () => {
@@ -33,7 +24,7 @@ function registerEndpoints() {
   app.use(express.static("build"));
 }
 
-connectToDb()
+db.connect()
   .then(useWebpackMiddleware)
   .then(registerEndpoints)
   .then(startServer);

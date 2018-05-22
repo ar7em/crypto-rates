@@ -5,6 +5,10 @@ import CurrenciesList from "components/Currencies";
 import * as actions from "actions/currencies";
 
 class Currencies extends Component {
+  componentDidMount() {
+    this.props.requestAll();
+  }
+
   render() {
     if (!this.props.currencies.length) {
       return null;
@@ -18,7 +22,8 @@ class Currencies extends Component {
 
 Currencies.propTypes = {
   currencies: PropTypes.array.isRequired,
-  remove: PropTypes.func.isRequired
+  remove: PropTypes.func.isRequired,
+  requestAll: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -26,7 +31,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  remove: (code) => dispatch(actions.remove(code))
+  remove: (_id) => dispatch(actions.remove(_id)),
+  requestAll: () => dispatch(actions.requestAll())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Currencies);
