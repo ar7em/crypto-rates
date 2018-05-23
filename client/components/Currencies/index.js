@@ -11,15 +11,18 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+import Trend from "react-trend";
 
 import style from "./style.css";
 
 const Currencies = (props) => {
-  const rows = props.currencies.map(({ code, price }) => (
+  const rows = props.currencies.map(({ code, price, history }) => (
     <TableRow key={code}>
       <TableRowColumn>{code}</TableRowColumn>
       <TableRowColumn>{price}€</TableRowColumn>
-      <TableRowColumn></TableRowColumn>
+      <TableRowColumn>
+        { history && <Trend strokeWidth={10} stroke={cyan500} data={ history.map(item => item.price) } /> }
+      </TableRowColumn>
       <TableRowColumn>
         <IconButton onClick={props.remove.bind(null, code)}>
           <DeleteIcon hoverColor={cyan500} />
@@ -38,7 +41,11 @@ const Currencies = (props) => {
           <TableRow>
             <TableHeaderColumn>Currency</TableHeaderColumn>
             <TableHeaderColumn>Price</TableHeaderColumn>
-            <TableHeaderColumn>History</TableHeaderColumn>
+            <TableHeaderColumn>
+              <div className={style.Currencies__trend}>
+                Trend
+              </div>
+            </TableHeaderColumn>
             <TableHeaderColumn>Delete</TableHeaderColumn>
           </TableRow>
         </TableHeader>

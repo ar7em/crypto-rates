@@ -4,7 +4,7 @@ const db = require("../db");
 
 const api = "https://min-api.cryptocompare.com/data/price";
 const fiat = "EUR";
-const getCollection = () => db.get("currencies");
+const getCollection = (name) => db.get(name);
 
 const scheduleUpdate = (code) => {
   schedule.scheduleJob("*/5 * * * *", () => {
@@ -13,11 +13,12 @@ const scheduleUpdate = (code) => {
 };
 
 const getAll = async () => {
-  const documents = await getCollection().find();
-  documents.sort((a, b) => {
-    return b.added - a.added;
+  const documents = await getCollection("currencies").find({}, { sort: { added:-1 } } );
+  const history = await getCollection("history").find({}, { limit: 100, sort: { timestamp:-1 } } );
+  return documents.map((currency) => {
+    currency.history = history.filter(({code}) => code === currency.code);
+    return currency;
   });
-  return documents;
 };
 
 const fetch = async (code) => {
@@ -37,7 +38,7 @@ const fetch = async (code) => {
 
   const price = data[fiat];
 
-  getCollection().findOneAndUpdate({
+  getCollection("currencies").findOneAndUpdate({
     code
   }, {
     $set: {
@@ -53,11 +54,18 @@ const fetch = async (code) => {
     console.log("Upserted: ", updatedDoc);
   });
 
+  getCollection("history").insert({
+    code,
+    price,
+    timestamp: Date.now()
+  });
+
   return price;
 };
 
 const remove = async (code) => {
-  return await getCollection().remove({code});
+  getCollection("history").remove({code});
+  return await getCollection("currencies").remove({code});
 };
 
 db.then(async () => {
